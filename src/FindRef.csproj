@@ -7,6 +7,9 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>findref</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
+    <Version>0.1.0</Version>
+    <Authors>henrihs</Authors>
+    <PackageProjectUrl>https://github.com/henrihs/findref</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
