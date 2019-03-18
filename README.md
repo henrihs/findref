@@ -1,4 +1,7 @@
+[![NuGet](https://img.shields.io/nuget/v/FindRef.svg?maxAge=2592000)](https://www.nuget.org/packages/FindRef)
+
 # FindRef - find those references!
+
 
 `findref` is a simple dotnet global tool designed for searching through a directory of DLLs after a given assembly reference. It supports searching through assemblies targeting `netstandard`, `netcoreapp` or `.NET Framework`
 
