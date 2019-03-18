@@ -10,6 +10,7 @@
     <Version>0.1.0</Version>
     <Authors>henrihs</Authors>
     <PackageProjectUrl>https://github.com/henrihs/findref</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/henrihs/findref/LICENSE.md</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
