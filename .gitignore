@@ -1,0 +1,13 @@
+# Compiled source and friends
+*.dll
+*.exe
+*.pdb
+bin/
+obj/
+
+# Packages
+*.nupkg
+
+# Editors/IDEs
+.vscode/
+.idea/
