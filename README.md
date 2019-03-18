@@ -1,4 +1,4 @@
-[![NuGet](https://img.shields.io/nuget/v/FindRef.svg?maxAge=2592000)](https://www.nuget.org/packages/FindRef)
+[![NuGet](https://img.shields.io/nuget/vpre/FindRef.svg?maxAge=2592000)](https://www.nuget.org/packages/FindRef)
 
 # FindRef - find those references!
 
