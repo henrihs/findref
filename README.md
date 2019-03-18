@@ -29,7 +29,9 @@ Loading DLLs from 'src/bin/Debug/netcoreapp2.1/'
 
 ### Run from source
 ```sh
-git clone https://github.com/henrihs/findref.git
-cd findref/src
-dotnet run -- -vr McMaster.Extensions.CommandLineUtils
+$ git clone https://github.com/henrihs/findref.git
+$ cd findref/src
+$ dotnet run -- -r McMaster.Extensions.CommandLineUtils
+
++ FindRef.dll has a reference to McMaster.Extensions.CommandLineUtils
 ```
