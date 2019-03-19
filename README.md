@@ -6,6 +6,9 @@
 `findref` is a simple dotnet global tool designed for searching through a directory of DLLs after a given assembly reference. It supports searching through assemblies targeting `netstandard`, `netcoreapp` or `.NET Framework`
 
 ### Installing
+
+Prerequisite: [.NET Core SDK >= 2.1](https://dotnet.microsoft.com/download)
+
 ```
 $ dotnet tool install --global findref
 ```
