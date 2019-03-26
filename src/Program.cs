@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using dnlib.DotNet;
 using McMaster.Extensions.CommandLineUtils;
 
@@ -10,6 +11,8 @@ namespace FindRef
     public static class Program
     {
         private static bool _verbose;
+        private static bool _useRegex;
+        private static bool _includeUnmatched;
 
         public static int Main(string[] args)
         {
@@ -25,6 +28,7 @@ namespace FindRef
                 CommandOptionType.SingleValue);
             var optionRecurse = app.Option("-r|--recursive", "search directory recursively", CommandOptionType.NoValue);
             var optionVerbose = app.Option("-v|--verbose", "write verbose output to stdout", CommandOptionType.NoValue);
+            var optionRegex = app.Option("-e|--regex", "use assemblyname argument as regex pattern", CommandOptionType.NoValue);
             var optionIncludeUnmatched = app.Option(
                 "-i|--include-unmatched",
                 "include unmatched search results in the output",
@@ -44,11 +48,12 @@ namespace FindRef
                     _verbose = optionVerbose.HasValue();
                     var searchOption = optionRecurse.HasValue() ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
                     var directory = optionDirectory.HasValue() ? optionDirectory.Value() : Directory.GetCurrentDirectory();
-                    var includeUnmatched = optionIncludeUnmatched.HasValue();
+                    _useRegex = optionRegex.HasValue();
+                    _includeUnmatched = optionIncludeUnmatched.HasValue();
                     
                     var modules = LoadModules(directory, searchOption);
 
-                    FindReferences(modules, findReferenceName, includeUnmatched);
+                    FindReferences(modules, findReferenceName);
                 });
 
             return app.Execute(args);
@@ -67,17 +72,20 @@ namespace FindRef
             }
         }
 
-        private static void FindReferences(IEnumerable<ModuleDefMD> modules, string findReferenceName, bool includeUnmatched)
+        private static void FindReferences(IEnumerable<ModuleDefMD> modules, string findReferenceName)
         {
             foreach (var module in modules)
             {
                 var name = _verbose ? module.Assembly.FullName : module.Name.String;
 
-                if (HasReference(module, findReferenceName, out var fullReferenceName))
+                if (HasReference(module, findReferenceName, out var fullReferenceNames))
                 {
-                    Write($"+ {name} has a reference to {(_verbose ? fullReferenceName : findReferenceName)}");
+                    foreach (var fullReferenceName in fullReferenceNames)
+                    {
+                        Write($"+ {name} has a reference to {(_verbose ? fullReferenceName : findReferenceName)}");
+                    }
                 }
-                else if (includeUnmatched)
+                else if (_includeUnmatched)
                 {
                     Write($"- {name} has no references to {(findReferenceName)}");
                 }
@@ -93,13 +101,23 @@ namespace FindRef
             return modules;
         }
 
-        private static bool HasReference(ModuleDef module, string findReference, out string fullName)
+        private static bool HasReference(ModuleDef module, string findReference, out string[] fullNames)
         {
+            fullNames = null;
             var refs = module.GetAssemblyRefs();
-            fullName = refs.FirstOrDefault(reference => reference.Name == findReference)?.FullName;
-            return fullName != null;
-        }
+            if (_useRegex)
+            {
+                var regex = new Regex(findReference);
+                fullNames = refs.Where(assembly => regex.IsMatch(assembly.Name)).Select(assembly => assembly.FullName).ToArray();
+            }
+            else
+            {
+                fullNames = new[] { refs.FirstOrDefault(assembly => assembly.Name == findReference)?.FullName };
+            }
 
+            return fullNames != null;
+        }
+        
         private static IEnumerable<ModuleDefMD> LoadModules(IEnumerable<string> dlls)
         {
             var modules = new List<ModuleDefMD>();
