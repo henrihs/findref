@@ -14,11 +14,12 @@ variables:
 
 steps:
 - script: dotnet pack --configuration $(buildConfiguration) src/FindRef.csproj
-          cp src/nupkg/*.nupkg '$(Build.ArtifactStagingDirectory)'
-  displayName: 'CI'
+  displayName: 'Compile and pack'
+
+- script: cp src/nupkg/*.nupkg '$(Build.ArtifactStagingDirectory)'
+  displayName: 'Copy nupgk to artifacts staging'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    TargetPath: src/nupkg
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     artifactName: findrefNuget
