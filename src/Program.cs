@@ -51,9 +51,14 @@ namespace FindRef
                     _useRegex = optionRegex.HasValue();
                     _includeUnmatched = optionIncludeUnmatched.HasValue();
                     
-                    var modules = LoadModules(directory, searchOption);
+                    var modules = LoadModules(directory, searchOption).ToArray();
 
                     FindReferences(modules, findReferenceName);
+                    
+                    foreach (var module in modules)
+                    {
+                        module.Dispose();
+                    }
                 });
 
             return app.Execute(args);
