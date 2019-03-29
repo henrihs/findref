@@ -11,15 +11,8 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  projectPath: src/FindRef.csproj
 
 steps:
-- script: dotnet pack --configuration $(buildConfiguration) src/FindRef.csproj
-  displayName: 'Compile and pack'
-
-- script: cp src/nupkg/*.nupkg '$(Build.ArtifactStagingDirectory)'
-  displayName: 'Copy nupgk to artifacts staging'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: findrefNuget
+- script: dotnet build --configuration $(buildConfiguration) $(projectPath)
+  displayName: 'Build'
