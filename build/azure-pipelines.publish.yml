@@ -4,10 +4,10 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-# - master
-  tags:
-    include:
-    - v*
+- master
+  # tags:
+  #   include:
+  #   - v*
 
 pool:
   vmImage: 'Ubuntu-16.04'
@@ -19,8 +19,9 @@ variables:
 
 steps:
 - script: |
-    TAGGEDVERSION=`git describe --tags | tr -d -c 0-9.`
-    echo "##vso[task.setvariable variable=version]${TAGGEDVERSION}"
+    # TAGGEDVERSION=`git describe --tags | tr -d -c 0-9.`
+    # echo "##vso[task.setvariable variable=version]${TAGGEDVERSION}"
+    echo "##vso[task.setvariable variable=version]0.2.0"
   displayName: 'Get version from tag'
 
 - script: | 
