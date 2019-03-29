@@ -1,0 +1,38 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+# - master
+  tags:
+    include:
+    - v*
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+variables:
+  buildConfiguration: 'Release'
+  projectPath: src/FindRef.csproj
+  nugetPath: src/nupkg
+
+steps:
+- script: |
+    TAGGEDVERSION=`git describe --tags | tr -d -c 0-9.`
+    echo "##vso[task.setvariable variable=version]${TAGGEDVERSION}"
+  displayName: 'Get version from tag'
+
+- script: | 
+    dotnet pack --configuration $(buildConfiguration) -p:PackageVersion=$(VERSION) $(projectPath)
+    cp $(nugetPath)/*.nupkg $(Build.ArtifactStagingDirectory)
+  displayName: 'Pack and copy to staging'
+
+- task: NuGetCommand@2
+  displayName: 'Push to NuGet.org'
+  inputs:
+    command: push
+    nuGetFeedType: external
+    publishFeedCredentials: 'NuGet.org'
+    versioningScheme: byEnvVar
+    versionEnvVar: $(VERSION)
