@@ -27,6 +27,7 @@ Options:
   -d|--directory <DIRECTORY>  The root directory to search through (default: working directory)
   -r|--recursive              search directory recursively
   -v|--verbose                write verbose output to stdout
+  -e|--regex                  use assemblyname argument as regex pattern
   -i|--include-unmatched      include unmatched search results in the output
 
 $ findref -v -d $REPOS/FindRef/src/bin/debug/netcoreapp2.1/ dnlib
