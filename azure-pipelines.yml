@@ -14,6 +14,7 @@ variables:
 
 steps:
 - script: dotnet pack --configuration $(buildConfiguration) src/FindRef.csproj
+          cp src/nupkg/*.nupkg '$(Build.ArtifactStagingDirectory)'
   displayName: 'CI'
 
 - task: PublishBuildArtifacts@1
