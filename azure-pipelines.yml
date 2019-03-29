@@ -13,5 +13,11 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration) src/FindRef.csproj
+- script: dotnet pack --configuration $(buildConfiguration) src/FindRef.csproj
   displayName: 'CI'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    TargetPath: src/nupkg
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: findrefNuget
