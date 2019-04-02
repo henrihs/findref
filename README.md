@@ -1,4 +1,4 @@
-[![NuGet](https://img.shields.io/nuget/vpre/FindRef.svg?maxAge=2592000)](https://www.nuget.org/packages/FindRef)
+[![NuGet](https://img.shields.io/nuget/vpre/FindRef.svg)](https://www.nuget.org/packages/FindRef)
 [![Build Status](https://dev.azure.com/hhe0094/FindRef/_apis/build/status/henrihs.findref.ci?branchName=master)](https://dev.azure.com/hhe0094/FindRef/_build/latest?definitionId=1&branchName=master)
 
 # FindRef - find those references!
