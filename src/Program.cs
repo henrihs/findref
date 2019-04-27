@@ -120,7 +120,7 @@ namespace FindRef
                 fullNames = new[] { refs.FirstOrDefault(assembly => assembly.Name == findReference)?.FullName };
             }
 
-            return fullNames != null;
+            return !string.IsNullOrEmpty(fullNames.FirstOrDefault());
         }
         
         private static IEnumerable<ModuleDefMD> LoadModules(IEnumerable<string> dlls)
