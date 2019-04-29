@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="dnlib" Version="3.2.0" />
+      <PackageReference Include="mcmaster.extensions.commandlineutils" Version="2.3.4" />
+    </ItemGroup>
+
+</Project>
