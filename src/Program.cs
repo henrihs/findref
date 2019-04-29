@@ -20,15 +20,27 @@ namespace FindRef
 
             app.HelpOption();
 
-            var argumentFindReference = app.Argument("assemblyname", "the name of the assembly to look for references to");
+            var argumentFindReference = app.Argument(
+                "assemblyname", 
+                "the name of the assembly to look for references to. " +
+                "Case insensitive, matches if the FullName of the referenced assembly is equal to the argument.");
 
             var optionDirectory = app.Option(
                 "-d|--directory <DIRECTORY>",
-                "The root directory to search through (default: working directory)",
+                "the root directory to search through (default: working directory)",
                 CommandOptionType.SingleValue);
-            var optionRecurse = app.Option("-r|--recursive", "search directory recursively", CommandOptionType.NoValue);
-            var optionVerbose = app.Option("-v|--verbose", "write verbose output to stdout", CommandOptionType.NoValue);
-            var optionRegex = app.Option("-e|--regex", "use assemblyname argument as regex pattern", CommandOptionType.NoValue);
+            var optionRecurse = app.Option(
+                "-r|--recursive", 
+                "search directory recursively", 
+                CommandOptionType.NoValue);
+            var optionVerbose = app.Option(
+                "-v|--verbose", 
+                "write verbose output to stdout", 
+                CommandOptionType.NoValue);
+            var optionRegex = app.Option(
+                "-e|--regex", 
+                "use assemblyname argument as regex pattern", 
+                CommandOptionType.NoValue);
             var optionIncludeUnmatched = app.Option(
                 "-i|--include-unmatched",
                 "include unmatched search results in the output",
@@ -97,15 +109,6 @@ namespace FindRef
             }
         }
 
-        private static IEnumerable<ModuleDefMD> LoadModules(string directory, SearchOption searchOption)
-        {
-            WriteVerbose($"Loading DLLs from '{directory}'{(searchOption == SearchOption.AllDirectories ? " recursively" : string.Empty)}");
-            var dlls = Directory.EnumerateFiles(directory, "*.dll", searchOption);
-            var modules = LoadModules(dlls);
-            Write(string.Empty);
-            return modules;
-        }
-
         private static bool HasReference(ModuleDef module, string findReference, out string[] fullNames)
         {
             fullNames = null;
@@ -117,12 +120,24 @@ namespace FindRef
             }
             else
             {
-                fullNames = new[] { refs.FirstOrDefault(assembly => assembly.Name == findReference)?.FullName };
+                fullNames = new[]
+                {
+                    refs.FirstOrDefault(assembly => string.Equals(assembly.Name, findReference, StringComparison.OrdinalIgnoreCase))?.FullName
+                };
             }
 
             return !string.IsNullOrEmpty(fullNames.FirstOrDefault());
         }
-        
+
+        private static IEnumerable<ModuleDefMD> LoadModules(string directory, SearchOption searchOption)
+        {
+            WriteVerbose($"Loading DLLs from '{directory}'{(searchOption == SearchOption.AllDirectories ? " recursively" : string.Empty)}");
+            var dlls = Directory.EnumerateFiles(directory, "*.dll", searchOption);
+            var modules = LoadModules(dlls);
+            Write(string.Empty);
+            return modules;
+        }
+
         private static IEnumerable<ModuleDefMD> LoadModules(IEnumerable<string> dlls)
         {
             var modules = new List<ModuleDefMD>();

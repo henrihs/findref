@@ -23,11 +23,11 @@ Arguments:
   assemblyname                the name of the assembly to look for references to
 
 Options:
-  -?|-h|--help                Show help information
-  -d|--directory <DIRECTORY>  The root directory to search through (default: working directory)
+  -?|-h|--help                show help information
+  -d|--directory <DIRECTORY>  the root directory to search through (default: working directory)
   -r|--recursive              search directory recursively
   -v|--verbose                write verbose output to stdout
-  -e|--regex                  use assemblyname argument as regex pattern
+  -e|--regex                  use assemblyname argument as regex pattern. NOTE: '*' should be escaped, i.e. 'abc\*'
   -i|--include-unmatched      include unmatched search results in the output
 
 $ findref -v -d $REPOS/FindRef/src/bin/debug/netcoreapp2.1/ dnlib
