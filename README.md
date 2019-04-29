@@ -1,4 +1,4 @@
-[![NuGet](https://img.shields.io/nuget/vpre/FindRef.svg)](https://www.nuget.org/packages/FindRef)
+[![NuGet](https://img.shields.io/nuget/vpre/FindRef.svg?maxAge=2592000)](https://www.nuget.org/packages/FindRef)
 [![Build Status](https://dev.azure.com/hhe0094/FindRef/_apis/build/status/henrihs.findref.ci?branchName=master)](https://dev.azure.com/hhe0094/FindRef/_build/latest?definitionId=1&branchName=master)
 
 # FindRef - find those references!
@@ -20,14 +20,14 @@ $ findref -h
 Usage:  [arguments] [options]
 
 Arguments:
-  assemblyname                the name of the assembly to look for references to
+  assemblyname                the name of the assembly to look for references to. Case insensitive, matches if the FullName is equal to the argument.
 
 Options:
-  -?|-h|--help                show help information
+  -?|-h|--help                Show help information
   -d|--directory <DIRECTORY>  the root directory to search through (default: working directory)
   -r|--recursive              search directory recursively
   -v|--verbose                write verbose output to stdout
-  -e|--regex                  use assemblyname argument as regex pattern. NOTE: '*' should be escaped, i.e. 'abc\*'
+  -e|--regex                  use assemblyname argument as regex pattern
   -i|--include-unmatched      include unmatched search results in the output
 
 $ findref -v -d $REPOS/FindRef/src/bin/debug/netcoreapp2.1/ dnlib
