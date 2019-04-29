@@ -12,6 +12,7 @@
     <PackageProjectUrl>https://github.com/henrihs/findref</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>dotnet global tool for finding .NET referenced assemblies</Description>
+    <RootNamespace>FindRef.DotnetTool</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using dnlib.DotNet;
 using McMaster.Extensions.CommandLineUtils;
 
-namespace FindRef
+namespace FindRef.DotnetTool
 {
     public static class Program
     {
