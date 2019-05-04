@@ -16,8 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="dnlib" Version="3.1.0" />
-    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.3.3" />
+    <ProjectReference Include="..\FindRef.Cli\FindRef.Cli.csproj" />
   </ItemGroup>
 
 </Project>

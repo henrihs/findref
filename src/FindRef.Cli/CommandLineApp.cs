@@ -8,11 +8,11 @@ using McMaster.Extensions.CommandLineUtils;
 
 namespace FindRef.Cli
 {
-    public class CommandLineApp
+    public static class CommandLineApp
     {
         private static bool _isVerbose;
 
-        public static int Main(string[] args)
+        public static int Run(string[] args)
         {
             var app = new CommandLineApplication();
 
