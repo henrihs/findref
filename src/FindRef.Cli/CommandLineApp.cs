@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using dnlib.DotNet;
 using McMaster.Extensions.CommandLineUtils;
 
-namespace FindRef.Util
+namespace FindRef.Cli
 {
     public class CommandLineApp
     {
-        private static bool _verbose;
-        private static bool _useRegex;
-        private static bool _includeUnmatched;
+        private static bool _isVerbose;
 
         public static int Main(string[] args)
         {
@@ -20,7 +19,7 @@ namespace FindRef.Util
             app.HelpOption();
 
             var argumentFindReference = app.Argument(
-                "assemblyname", 
+                "assemblyname",
                 "the name of the assembly to look for references to. " +
                 "Case insensitive, matches if the FullName of the referenced assembly is equal to the argument.");
 
@@ -28,18 +27,9 @@ namespace FindRef.Util
                 "-d|--directory <DIRECTORY>",
                 "the root directory to search through (default: working directory)",
                 CommandOptionType.SingleValue);
-            var optionRecurse = app.Option(
-                "-r|--recursive", 
-                "search directory recursively", 
-                CommandOptionType.NoValue);
-            var optionVerbose = app.Option(
-                "-v|--verbose", 
-                "write verbose output to stdout", 
-                CommandOptionType.NoValue);
-            var optionRegex = app.Option(
-                "-e|--regex", 
-                "use assemblyname argument as regex pattern", 
-                CommandOptionType.NoValue);
+            var optionRecurse = app.Option("-r|--recursive", "search directory recursively", CommandOptionType.NoValue);
+            var optionVerbose = app.Option("-v|--verbose", "write verbose output to stdout", CommandOptionType.NoValue);
+            var optionRegex = app.Option("-e|--regex", "use assemblyname argument as regex pattern", CommandOptionType.NoValue);
             var optionIncludeUnmatched = app.Option(
                 "-i|--include-unmatched",
                 "include unmatched search results in the output",
@@ -56,22 +46,29 @@ namespace FindRef.Util
                         return;
                     }
 
-                    var verbose = optionVerbose.HasValue();
+                    _isVerbose = optionVerbose.HasValue();
                     var searchOption = optionRecurse.HasValue() ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
                     var directory = optionDirectory.HasValue() ? optionDirectory.Value() : Directory.GetCurrentDirectory();
                     var useRegex = optionRegex.HasValue();
                     var includeUnmatched = optionIncludeUnmatched.HasValue();
-                    
-                    var finder = new ReferenceFinder(Write, WriteVerbose, verbose, includeUnmatched, useRegex);
-                    
-                    var modules = finder.LoadModules(directory, searchOption).ToArray();
 
-                    finder.FindReferences(modules, findReferenceName);
-                    
-                    foreach (var module in modules)
-                    {
-                        module.Dispose();
-                    }
+                    WriteVerbose($"Loading DLLs from '{directory}'{(searchOption == SearchOption.AllDirectories ? " recursively" : string.Empty)}");
+                    var finder = new ReferenceFinder(
+                        new FileIO(),
+                        new ModuleLoader(),
+                        options =>
+                        {
+                            options.Write = Write;
+                            options.WriteVerbose = WriteVerbose;
+                            options.Directory = directory;
+                            options.FindReferenceName = findReferenceName;
+                            options.SearchOption = searchOption;
+                            options.UseRegex = useRegex;
+                            options.IsVerbose = _isVerbose;
+                            options.IncludeUnmatched = includeUnmatched;
+                        });
+
+                    finder.FindReferences();
                 });
 
             return app.Execute(args);
@@ -84,7 +81,7 @@ namespace FindRef.Util
 
         private static void WriteVerbose(string s)
         {
-            if (_verbose)
+            if (_isVerbose)
             {
                 Write(s);
             }
