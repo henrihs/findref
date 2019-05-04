@@ -1,6 +1,4 @@
-﻿using FindRef.Cli;
-
-namespace FindRef.DotnetTool
+namespace FindRef.Cli
 {
     public static class Program
     {
