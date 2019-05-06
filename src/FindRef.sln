@@ -8,12 +8,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindRef.Cli", "FindRef.Cli\FindRef.Cli.csproj", "{1B5B5372-CFC5-4B50-809E-86AFE6209931}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FCBCEE7F-1BB9-436F-87EF-28CEBFB85835}"
-ProjectSection(SolutionItems) = preProject
-	..\docker\Dockerfile = ..\docker\Dockerfile
-	..\build\azure-pipelines.ci.yml = ..\build\azure-pipelines.ci.yml
-	..\build\azure-pipelines.publish.yml = ..\build\azure-pipelines.publish.yml
-	..\README.md = ..\README.md
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		..\docker\Dockerfile = ..\docker\Dockerfile
+		..\build\azure-pipelines.ci.yml = ..\build\azure-pipelines.ci.yml
+		..\build\azure-pipelines.publish.yml = ..\build\azure-pipelines.publish.yml
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindRef.Cli.Test", "FindRef.Cli.Test\FindRef.Cli.Test.csproj", "{5D98E9C7-4F11-4F51-9DB0-77085EFD9D8B}"
 EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
@@ -52,5 +54,17 @@ Global
 		{1B5B5372-CFC5-4B50-809E-86AFE6209931}.Release|x64.Build.0 = Release|Any CPU
 		{1B5B5372-CFC5-4B50-809E-86AFE6209931}.Release|x86.ActiveCfg = Release|Any CPU
 		{1B5B5372-CFC5-4B50-809E-86AFE6209931}.Release|x86.Build.0 = Release|Any CPU
+		{5D98E9C7-4F11-4F51-9DB0-77085EFD9D8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D98E9C7-4F11-4F51-9DB0-77085EFD9D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D98E9C7-4F11-4F51-9DB0-77085EFD9D8B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5D98E9C7-4F11-4F51-9DB0-77085EFD9D8B}.Debug|x64.Build.0 = Debug|Any CPU
+		{5D98E9C7-4F11-4F51-9DB0-77085EFD9D8B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5D98E9C7-4F11-4F51-9DB0-77085EFD9D8B}.Debug|x86.Build.0 = Debug|Any CPU
+		{5D98E9C7-4F11-4F51-9DB0-77085EFD9D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D98E9C7-4F11-4F51-9DB0-77085EFD9D8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D98E9C7-4F11-4F51-9DB0-77085EFD9D8B}.Release|x64.ActiveCfg = Release|Any CPU
+		{5D98E9C7-4F11-4F51-9DB0-77085EFD9D8B}.Release|x64.Build.0 = Release|Any CPU
+		{5D98E9C7-4F11-4F51-9DB0-77085EFD9D8B}.Release|x86.ActiveCfg = Release|Any CPU
+		{5D98E9C7-4F11-4F51-9DB0-77085EFD9D8B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
