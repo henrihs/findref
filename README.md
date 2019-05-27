@@ -50,7 +50,7 @@ $ dotnet run -- -r McMaster.Extensions.CommandLineUtils
 docker run --rm -it --volume="$PWD:/assemblies:ro" henrihs/findref [arguments] [options]
 ```
 
-Example, to search for `NewtonSoft.Json in the current directoy, use:
+Example, to search for `NewtonSoft.Json` in the current directoy, use:
 
 ```shell
 docker run --rm -it --volume="$PWD:/assemblies:ro" henrihs/findref -d . Newtonsoft.Json
