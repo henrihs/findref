@@ -43,3 +43,21 @@ $ dotnet run -- -r McMaster.Extensions.CommandLineUtils
 
 + FindRef.dll has a reference to McMaster.Extensions.CommandLineUtils
 ```
+
+### Run using Docker
+
+```shell
+docker run --rm -it --volume="$PWD:/assemblies:ro" henrihs/findref [arguments] [options]
+```
+
+Example, to search for `NewtonSoft.Json in the current directoy, use:
+
+```shell
+docker run --rm -it --volume="$PWD:/assemblies:ro" henrihs/findref -d . Newtonsoft.Json
+```
+
+#### Building the image locally
+
+```shell
+docker build -t henrihs/findref .
+```
