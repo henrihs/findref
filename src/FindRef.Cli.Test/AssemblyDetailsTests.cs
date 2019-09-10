@@ -3,7 +3,7 @@ using Xunit;
 
 namespace FindRef.Cli.Test
 {
-    public class AssemblyTests
+    public class AssemblyDetailsTests
     {
         [Fact]
         public void Ctor_ModuleDefInput_ParsesFullNameToNameAndVersionProps()
