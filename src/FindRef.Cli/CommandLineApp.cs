@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using dnlib.DotNet;
 using McMaster.Extensions.CommandLineUtils;
 
 namespace FindRef.Cli
@@ -50,7 +46,6 @@ namespace FindRef.Cli
                     var searchOption = optionRecurse.HasValue() ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
                     var directory = optionDirectory.HasValue() ? optionDirectory.Value() : Directory.GetCurrentDirectory();
                     var useRegex = optionRegex.HasValue();
-                    var includeUnmatched = optionIncludeUnmatched.HasValue();
 
                     WriteVerbose($"Loading DLLs from '{directory}'{(searchOption == SearchOption.AllDirectories ? " recursively" : string.Empty)}");
                     var finder = new ReferenceFinder(
@@ -58,17 +53,19 @@ namespace FindRef.Cli
                         new ModuleLoader(),
                         options =>
                         {
-                            options.Write = Write;
-                            options.WriteVerbose = WriteVerbose;
                             options.Directory = directory;
                             options.FindReferenceName = findReferenceName;
                             options.SearchOption = searchOption;
                             options.UseRegex = useRegex;
-                            options.IsVerbose = _isVerbose;
-                            options.IncludeUnmatched = includeUnmatched;
                         });
 
-                    finder.FindReferences();
+                    var matches = finder.FindReferences();
+                    
+                    var resultWriter = new ResultWriter(Write);
+                    foreach (var match in matches)
+                    {
+                        resultWriter.WriteMatch(match, _isVerbose);
+                    }
                 });
 
             return app.Execute(args);
