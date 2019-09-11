@@ -12,12 +12,12 @@ namespace FindRef.Cli.Wrappers
             _moduleDef = moduleDef;
         }
 
-        public string FullName => _moduleDef.FullName;
+        public string FullName => _moduleDef.Assembly.FullName;
 
         public UTF8String Name
         {
-            get => _moduleDef.Name;
-            set => _moduleDef.Name = value;
+            get => _moduleDef.Assembly.Name;
+            set => _moduleDef.Assembly.Name = value;
         }
 
         public IEnumerable<IFullName> GetAssemblyRefs()
