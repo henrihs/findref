@@ -28,11 +28,10 @@ Options:
   -r|--recursive              search directory recursively
   -v|--verbose                write verbose output to stdout
   -e|--regex                  use assemblyname argument as regex pattern
-  -i|--include-unmatched      include unmatched search results in the output
 
 $ findref -v -d $REPOS/FindRef/src/bin/debug/netcoreapp2.1/ dnlib
 Loading DLLs from 'src/bin/Debug/netcoreapp2.1/'
-+ FindRef.dll has a reference to dnlib, Version=3.1.0.0, Culture=neutral, PublicKeyToken=50e96378b6e77999
+FindRef.dll (1.0.0.0) has a reference to dnlib (3.1.0.0)
 ```
 
 ### Run from source
@@ -41,7 +40,7 @@ $ git clone https://github.com/henrihs/findref.git
 $ cd findref/src
 $ dotnet run -- -r McMaster.Extensions.CommandLineUtils
 
-+ FindRef.dll has a reference to McMaster.Extensions.CommandLineUtils
+FindRef.dll has a reference to McMaster.Extensions.CommandLineUtils
 ```
 
 ### Run using Docker

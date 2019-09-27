@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
 using dnlib.DotNet;
 
-namespace FindRef.Cli
+namespace FindRef.Cli.Assembly
 {
     public struct AssemblyDetails
     {

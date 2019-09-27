@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace FindRef.Cli
+namespace FindRef.Cli.IO
 {
     public interface IFileIO
     {

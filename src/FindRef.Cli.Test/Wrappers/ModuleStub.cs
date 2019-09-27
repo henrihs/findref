@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using dnlib.DotNet;
-using IModule = FindRef.Cli.Wrappers.IModule;
+using IModule = FindRef.Cli.Assembly.IModule;
 
-namespace FindRef.Cli.Test
+namespace FindRef.Cli.Test.Wrappers
 {
-    public class ModuleStub : IModule
+    public class ModuleStub : Assembly.IModule
     {
         private readonly HashSet<IModule> _references = new HashSet<IModule>();
 

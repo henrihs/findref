@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace FindRef.Cli
+namespace FindRef.Cli.Assembly
 {
     public class ReferenceFinderOptions
     {

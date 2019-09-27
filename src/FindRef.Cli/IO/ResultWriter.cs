@@ -1,7 +1,8 @@
 using System;
 using dnlib.DotNet;
+using FindRef.Cli.Assembly;
 
-namespace FindRef.Cli
+namespace FindRef.Cli.IO
 {
     public class ResultWriter
     {
@@ -16,13 +17,13 @@ namespace FindRef.Cli
         {
             if (!isVerbose)
             {
-                _writeAction($"+ {match.referee.Name} has a reference to {match.reference.Name}");
+                _writeAction($"{match.referee.Name} has a reference to {match.reference.Name}");
                 return;
             }
             
             var referee = new AssemblyDetails(match.referee);
             var reference = new AssemblyDetails(match.reference);
-            _writeAction($"+ {referee.FullName} ({referee.Version}) has a reference to {reference.FullName} ({reference.Version})");
+            _writeAction($"{referee.FullName} ({referee.Version}) has a reference to {reference.FullName} ({reference.Version})");
         }
     }
 }

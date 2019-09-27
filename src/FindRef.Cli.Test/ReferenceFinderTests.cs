@@ -1,7 +1,9 @@
 using System;
 using System.IO;
 using System.Linq;
-using FindRef.Cli.Wrappers;
+using FindRef.Cli.Assembly;
+using FindRef.Cli.IO;
+using FindRef.Cli.Test.Wrappers;
 using Moq;
 using Xunit;
 

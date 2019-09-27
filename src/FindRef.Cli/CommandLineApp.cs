@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using FindRef.Cli.Assembly;
+using FindRef.Cli.IO;
 using McMaster.Extensions.CommandLineUtils;
 
 namespace FindRef.Cli
@@ -26,10 +28,6 @@ namespace FindRef.Cli
             var optionRecurse = app.Option("-r|--recursive", "search directory recursively", CommandOptionType.NoValue);
             var optionVerbose = app.Option("-v|--verbose", "write verbose output to stdout", CommandOptionType.NoValue);
             var optionRegex = app.Option("-e|--regex", "use assemblyname argument as regex pattern", CommandOptionType.NoValue);
-            var optionIncludeUnmatched = app.Option(
-                "-i|--include-unmatched",
-                "include unmatched search results in the output",
-                CommandOptionType.NoValue);
 
             app.OnExecute(
                 () =>
@@ -49,7 +47,7 @@ namespace FindRef.Cli
 
                     WriteVerbose($"Loading DLLs from '{directory}'{(searchOption == SearchOption.AllDirectories ? " recursively" : string.Empty)}");
                     var finder = new ReferenceFinder(
-                        new FileIO(),
+                        new SystemIOWrapper(),
                         new ModuleLoader(),
                         options =>
                         {

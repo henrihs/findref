@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using FindRef.Cli.IO;
+using FindRef.Cli.Test.Wrappers;
 using Xunit;
 
 namespace FindRef.Cli.Test

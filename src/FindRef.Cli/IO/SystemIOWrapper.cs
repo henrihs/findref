@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace FindRef.Cli
+namespace FindRef.Cli.IO
 {
-    public class FileIO : IFileIO
+    public class SystemIOWrapper : IFileIO
     {
         public IEnumerable<string> GetFilePaths(string directory, string searchpattern, SearchOption searchOption)
         {

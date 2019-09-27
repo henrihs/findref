@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using dnlib.DotNet;
-using IModule = FindRef.Cli.Wrappers.IModule;
+using FindRef.Cli.IO;
 
-namespace FindRef.Cli
+namespace FindRef.Cli.Assembly
 {
     public class ReferenceFinder : IDisposable
     {
@@ -35,8 +35,6 @@ namespace FindRef.Cli
                 catch (Exception exception)
                 {
                     throw new LoadException(exception);
-                    // _options.WriteVerbose($"Failed loading {dll} due to {exception.GetType()}");
-                    // throw;
                 }
             }
 
@@ -55,12 +53,7 @@ namespace FindRef.Cli
                 foreach (var fullReferenceName in fullReferenceNames)
                 {
                     yield return (module, fullReferenceName);
-                    // _options.Write($"+ {name} has a reference to {(_options.IsVerbose ? fullReferenceName : findReferenceName)}");
                 }
-                // else if (_options.IncludeUnmatched)
-                // {
-                //     // _options.Write($"- {name} has no references to {(findReferenceName)}");
-                // }
             }
         }
 

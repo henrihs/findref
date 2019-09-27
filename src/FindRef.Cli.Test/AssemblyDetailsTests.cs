@@ -1,4 +1,5 @@
 using dnlib.DotNet;
+using FindRef.Cli.Assembly;
 using Xunit;
 
 namespace FindRef.Cli.Test

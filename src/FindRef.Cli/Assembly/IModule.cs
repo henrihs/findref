@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using dnlib.DotNet;
 
-namespace FindRef.Cli.Wrappers
+namespace FindRef.Cli.Assembly
 {
     public interface IModule : IFullName, IDisposable
     {
