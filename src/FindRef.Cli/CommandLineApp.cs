@@ -46,7 +46,8 @@ namespace FindRef.Cli
                     var useRegex = optionRegex.HasValue();
 
                     WriteVerbose($"Loading DLLs from '{directory}'{(searchOption == SearchOption.AllDirectories ? " recursively" : string.Empty)}");
-                    var finder = new ReferenceFinder(
+
+                    using (var finder = new ReferenceFinder(
                         new SystemIOWrapper(),
                         new ModuleLoader(),
                         options =>
@@ -55,14 +56,15 @@ namespace FindRef.Cli
                             options.FindReferenceName = findReferenceName;
                             options.SearchOption = searchOption;
                             options.UseRegex = useRegex;
-                        });
-
-                    var matches = finder.FindReferences();
-                    
-                    var resultWriter = new ResultWriter(Write);
-                    foreach (var match in matches)
+                        }))
                     {
-                        resultWriter.WriteMatch(match, _isVerbose);
+                        var matches = finder.FindReferences();
+                    
+                        var resultWriter = new ResultWriter(Write);
+                        foreach (var match in matches)
+                        {
+                            resultWriter.WriteMatch(match, _isVerbose);
+                        }
                     }
                 });
 
