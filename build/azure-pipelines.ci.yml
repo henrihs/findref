@@ -12,7 +12,7 @@ pool:
 variables:
   buildConfiguration: 'Release'
   slnPath: src/FindRef.sln
-  testProjectPath: src/FindRef.sln
+  testProjectPath: src/FindRef.Cli.Test
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
 
 steps:
