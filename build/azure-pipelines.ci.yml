@@ -13,6 +13,7 @@ variables:
   buildConfiguration: 'Release'
   slnPath: src/FindRef.Cli/FindRef.Cli.csproj
   testProjectPath: src/FindRef.Cli.Test/
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
 
 steps:
   
