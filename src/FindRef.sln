@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindRef.DotnetTool", "FindRef.DotnetTool\FindRef.DotnetTool.csproj", "{DA8BEBBB-A9ED-4EB6-95CF-448E51E798C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindRef", "FindRef\FindRef.csproj", "{DA8BEBBB-A9ED-4EB6-95CF-448E51E798C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindRef.Cli", "FindRef.Cli\FindRef.Cli.csproj", "{1B5B5372-CFC5-4B50-809E-86AFE6209931}"
 EndProject
