@@ -18,7 +18,7 @@ namespace FindRef.Cli.Test
             
             cut.WriteMatch((a,b), false);
             
-            Assert.Equal("+ A has a reference to B", output.Single());
+            Assert.Equal("A has a reference to B", output.Single());
         }
 
         [Fact]
@@ -31,7 +31,7 @@ namespace FindRef.Cli.Test
             
             cut.WriteMatch((a,b), true);
             
-            Assert.Equal("+ A.FullName (42.0.0) has a reference to B.FullName (1.0.0)", output.Single());
+            Assert.Equal("A.FullName (42.0.0) has a reference to B.FullName (1.0.0)", output.Single());
         }
     }
 }
