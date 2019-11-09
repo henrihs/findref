@@ -12,7 +12,6 @@ pool:
 variables:
   buildConfiguration: 'Release'
   slnPath: src/FindRef.Cli/FindRef.Cli.csproj
-  testProjectPath: src/FindRef.Cli.Test
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
 
 steps:
@@ -27,7 +26,7 @@ steps:
 
 - script: |
     dotnet tool install dotnet-reportgenerator-globaltool --tool-path .
-    ./reportgenerator -reports:$(testProjectPath)/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines;Cobertura
+    ./reportgenerator -reports:$(Build.SourcesDirectory)/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines;Cobertura
   displayName: Create code coverage report
 
 - task: PublishCodeCoverageResults@1
