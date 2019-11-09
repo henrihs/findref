@@ -28,7 +28,7 @@ namespace FindRef.Cli.Test
 
             var result = cut.FindReferences().ToArray();
             
-            Assert.Equal(1, result.Count());
+            Assert.Single(result);
             Assert.Equal(RefereeName, result.Single().referee.Name);
             Assert.Equal(TestData.fullNameB, result.Single().referee.FullName);
             Assert.Equal(ReferenceName, result.Single().reference.Name);
@@ -54,7 +54,7 @@ namespace FindRef.Cli.Test
             
             var result = cut.FindReferences().ToArray();
             
-            Assert.Equal(1, result.Count());
+            Assert.Single(result);
             Assert.Equal(RefereeName, result.Single().referee.Name);
             Assert.Equal(TestData.fullNameB, result.Single().referee.FullName);
             Assert.Equal(ReferenceName, result.Single().reference.Name);
