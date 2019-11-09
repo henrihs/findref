@@ -25,5 +25,10 @@ namespace FindRef.Cli.IO
             var reference = new AssemblyDetails(match.reference);
             _writeAction($"{referee.FullName} ({referee.Version}) has a reference to {reference.FullName} ({reference.Version})");
         }
+
+        public void WriteFailed(FailedModule failedModule)
+        {
+            _writeAction($"Failed to load {failedModule.Name}: {failedModule.Reason}");
+        }
     }
 }

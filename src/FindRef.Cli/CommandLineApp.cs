@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using FindRef.Cli.Assembly;
 using FindRef.Cli.IO;
@@ -58,9 +59,15 @@ namespace FindRef.Cli
                             options.UseRegex = useRegex;
                         }))
                     {
-                        var matches = finder.FindReferences();
+                        var matches = finder.FindReferences(out var failedModules);
                     
                         var resultWriter = new ResultWriter(Write);
+
+                        if (_isVerbose)
+                        {
+                            WriteFailures(failedModules, resultWriter);
+                        }
+                        
                         foreach (var match in matches)
                         {
                             resultWriter.WriteMatch(match, _isVerbose);
@@ -69,6 +76,14 @@ namespace FindRef.Cli
                 });
 
             return app.Execute(args);
+        }
+
+        private static void WriteFailures(IEnumerable<FailedModule> failedModules, ResultWriter resultWriter)
+        {
+            foreach (var failedModule in failedModules)
+            {
+                resultWriter.WriteFailed(failedModule);
+            }
         }
 
         private static void Write(string s)

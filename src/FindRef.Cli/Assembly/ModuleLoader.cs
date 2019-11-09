@@ -11,10 +11,9 @@ namespace FindRef.Cli.Assembly
             {
                 return new ModuleDefWrapper(ModuleDefMD.Load(filePath));
             }
-            catch (BadImageFormatException)
+            catch (Exception e)
             {
-                Console.WriteLine($"Failed to load {filePath} due to BadImageFormatException");
-                return new FailedModule(filePath);
+                return new FailedModule(filePath, e.Message);
             }
         }
     }

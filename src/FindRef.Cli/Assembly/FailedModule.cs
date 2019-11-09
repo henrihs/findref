@@ -7,10 +7,12 @@ namespace FindRef.Cli.Assembly
     {
         public string FullName => Name;
         public UTF8String Name { get; set; }
+        public string Reason { get; }
 
-        public FailedModule(string filename)
+        public FailedModule(string filename, string reason)
         {
             Name = filename;
+            Reason = reason;
         }
         
         public void Dispose()

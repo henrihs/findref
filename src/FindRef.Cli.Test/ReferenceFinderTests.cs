@@ -26,7 +26,7 @@ namespace FindRef.Cli.Test
                     options.FindReferenceName = "A";
                 });
 
-            var result = cut.FindReferences().ToArray();
+            var result = cut.FindReferences(out _).ToArray();
             
             Assert.Single(result);
             Assert.Equal(RefereeName, result.Single().referee.Name);
@@ -52,7 +52,7 @@ namespace FindRef.Cli.Test
                     options.UseRegex = true;
                 });
             
-            var result = cut.FindReferences().ToArray();
+            var result = cut.FindReferences(out _).ToArray();
             
             Assert.Single(result);
             Assert.Equal(RefereeName, result.Single().referee.Name);
@@ -69,9 +69,24 @@ namespace FindRef.Cli.Test
             var cut = new ReferenceFinder(fileIOMock.Object, moduleLoaderMock.Object,
                 options => { options.SearchOption = SearchOption.AllDirectories; });
 
-            cut.FindReferences();
+            cut.FindReferences(out _);
             
             fileIOMock.Verify(f => f.GetFilePaths(It.IsAny<string>(), "*.dll", SearchOption.AllDirectories));
+        }
+
+        [Fact]
+        public void FindReferences_FailsToLoadModule_PassedAsOutArgument()
+        {
+            var fileIOMock = new Mock<IFileIO>();
+            fileIOMock.Setup(f => f.GetFilePaths(".", "*.dll", It.IsAny<SearchOption>())).Returns(new[] { "A" });
+            var moduleLoaderMock = new Mock<IModuleLoader>();
+            var failedModule = new FailedModule("A", "Because");
+            moduleLoaderMock.Setup(m => m.Load("A")).Returns(failedModule);
+            var cut = new ReferenceFinder(fileIOMock.Object, moduleLoaderMock.Object, options => { });
+
+            cut.FindReferences(out var failedModules);
+            
+            Assert.Same(failedModule, failedModules.Single());
         }
 
         private static ReferenceFinder SetupCut(IModule moduleA, IModule moduleB, Action<ReferenceFinderOptions> options)

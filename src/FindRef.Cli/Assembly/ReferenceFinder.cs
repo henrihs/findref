@@ -22,22 +22,22 @@ namespace FindRef.Cli.Assembly
             optionsFunc.Invoke(_options);
         }
 
-        public IEnumerable<(IFullName referee, IFullName reference)> FindReferences()
+        public IEnumerable<(IFullName referee, IFullName reference)> FindReferences(out IEnumerable<FailedModule> failedModules)
         {
             _modules = new List<IModule>();
+            var failed = new List<FailedModule>();
             var dlls = _fileIo.GetFilePaths(_options.Directory, "*.dll", _options.SearchOption);
             foreach (var dll in dlls)
             {
-                try
+                var module = _loader.Load(dll);
+                if (module is FailedModule f)
                 {
-                    _modules.Add(_loader.Load(dll));
+                    failed.Add(f);
                 }
-                catch (Exception exception)
-                {
-                    throw new LoadException(exception);
-                }
+                _modules.Add(module);
             }
 
+            failedModules = failed;
             return FindReferences(_modules, _options.FindReferenceName);
         }
 
